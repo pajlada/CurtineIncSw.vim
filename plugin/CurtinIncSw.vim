@@ -1,7 +1,7 @@
 function! FindInc()
   let dirname=fnamemodify(expand("%:p"), ":h")
   let target_file=b:inc_sw
-  let cmd="find " . dirname . " . -type f -iname \"" . target_file . "\" -print -quit"
+  let cmd="find " . dirname . " . -type f -regex \".*" . target_file . "\" -print -quit"
   let find_res=system(cmd)
   if filereadable(find_res)
     return 0
@@ -16,9 +16,9 @@ function! CurtineIncSw()
     return 0
   endif
   if match(expand("%"), '\.c') > 0
-    let b:inc_sw=substitute(expand("%:t"), '\.c\(.*\)', '.h*', "")
+    let b:inc_sw=substitute(expand("%:t"), '\.c\([a-z+]*\)', '.h[a-z+]*', "")
   elseif match(expand("%"), "\\.h") > 0
-    let b:inc_sw=substitute(expand("%:t"), '\.h\(.*\)', '.c*', "")
+    let b:inc_sw=substitute(expand("%:t"), '\.h\([a-z+]*\)', '.c[a-z+]*', "")
   endif
 
   call FindInc()
