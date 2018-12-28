@@ -20,12 +20,12 @@ function! CurtineIncSw()
     exe "e " b:inc_sw_buffered_result
     return 0
   endif
+
   if match(expand("%"), '\.c') > 0
     let b:inc_sw=substitute(expand("%:t"), '\.c\([a-z+]*\)', '.h[a-z+]*', "")
-  elseif match(expand("%"), "\\.h") > 0
+  elseif match(expand("%"), '\.h') > 0
     let b:inc_sw=substitute(expand("%:t"), '\.h\([a-z+]*\)', '.c[a-z+]*', "")
   endif
 
   call FindInc()
 endfun
-
