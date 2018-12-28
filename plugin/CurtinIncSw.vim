@@ -7,12 +7,17 @@ function! FindInc()
     return 0
   endif
 
+  let b:inc_sw_buffered_result=find_res
+
   exe "e " find_res
 endfun
 
 function! CurtineIncSw()
-  if exists("b:inc_sw")
-    e#
+  if exists("b:inc_sw_inc_sw_buffered_result")
+    " Open up the buffered result
+    " TODO: Check if file exists before attempting to open it?
+    " TODO: Handle failure cases
+    exe "e " b:inc_sw_buffered_result
     return 0
   endif
   if match(expand("%"), '\.c') > 0
